@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        .navbar {
+            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #fff;
+        }
+
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #fff;
+        }
+
+        .navbar-brand, #name {
+            font-family: 'Lucida Handwriting', cursive; /* Use Lucida Handwriting font */
+        }
+
+        .chat-box {
+            border: 2px solid #007bff; /* Blue border */
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .chat-message {
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .user-icon {
+            color: #007bff; /* Blue color */
+        }
+
+        .bot-icon {
+            color: #28a745; /* Green color */
+        }
+
+        #chatbot-container {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+            width: 80%; /* Adjust the width as needed */
+            max-width: 600px; /* Set a maximum width if necessary */
+            height: auto; /* Let the height adjust based on content */
+            margin: 0 auto; /* Center the container horizontally */
+        }
+
+        .keyword-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .keyword-buttons button {
+            margin: 0 5px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="home.html">Dhruv Vyas</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a class="nav-link" href="home.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="skill.html">Skills</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="home.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h1 id="aboutMe" class="text-center mb-4" style="font-family: 'Lucida Handwriting', cursive;">About Me</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Chat Bot Container -->
+                <div class="chat-box">
+                    <!-- Predefined Question and Answer -->
+                    <div id="chatbot-container" class="text-center">
+                        <span class="bot-icon"><i class="fas fa-robot"></i></span> Hi, I am Dhruv Vyas's personal chatbot. You can ask me anything!
+                    </div>
+                </div>
+                
+                <!-- Keyword Buttons -->
+                <div class="keyword-buttons">
+                    <button class="btn btn-outline-primary" onclick="fillInput('education')">Education</button>
+                    <button class="btn btn-outline-primary" onclick="fillInput('work experience')">Work Experience</button>
+                    <button class="btn btn-outline-primary" onclick="fillInput('skills')">Skills</button>
+                    <!-- Add more buttons as needed -->
+                </div>
+                
+                <!-- Chat Input -->
+                <div class="input-group mt-4">
+                    <input type="text" id="userInput" class="form-control" placeholder="Ask me anything...">
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="button" id="sendButton">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('sendButton').addEventListener('click', function() {
+            var userInput = document.getElementById('userInput').value;
+            addChat('User', userInput);
+            document.getElementById('userInput').value = '';
+            // Simulate bot response (replace with actual bot logic)
+            setTimeout(function() {
+                handleBotResponse(userInput);
+            }, 500);
+        });
+
+        function fillInput(keyword) {
+            document.getElementById('userInput').value = keyword;
+        }
+
+        function handleBotResponse(userInput) {
+            var botResponse;
+            switch (userInput.toLowerCase()) {
+                case 'education':
+                    botResponse = 'I have Completed my Diploma Degree in Information Technology and Currently Pursuing with my BE in Computer engineering';
+                    break;
+                case 'work experience':
+                    botResponse = 'I have Participated in Various Hackathon and have Worked in several Projects';
+                    break;
+                case 'skills':
+                    botResponse = 'Python,Pandas,Numpy,Matplotlib,Seaborn,Sql,Pytorch,TensorFlow';
+                    break;
+                // Add more predefined questions and answers here
+                default:
+                    botResponse = 'I am an AI bot. I can help you with any questions you have!';
+            }
+            addChat('Bot', botResponse, true);
+        }
+
+        function addChat(who, message, isTyping = false) {
+            var chatContainer = document.createElement('div');
+            chatContainer.classList.add('chat-message');
+            var iconSpan = document.createElement('span');
+            iconSpan.classList.add(who.toLowerCase() === 'user' ? 'user-icon' : 'bot-icon');
+            var icon = document.createElement('i');
+            icon.classList.add('fas', who.toLowerCase() === 'user' ? 'fa-user' : 'fa-robot');
+            iconSpan.appendChild(icon);
+            var messageSpan = document.createElement('span');
+            chatContainer.appendChild(iconSpan);
+            chatContainer.appendChild(messageSpan);
+            document.getElementById('chatbot-container').appendChild(chatContainer);
+
+            if (isTyping) {
+                typeText(messageSpan, message);
+            } else {
+                messageSpan.textContent = message;
+            }
+        }
+
+        function typeText(element, text, index = 0) {
+            if (index < text.length) {
+                element.textContent += text.charAt(index);
+                setTimeout(function() {
+                    typeText(element, text, index + 1);
+                }, 50);
+            }
+        }
+
+        function animateText(element, text) {
+            // Clear existing text
+            element.textContent = '';
+            // Split text into characters
+            const characters = text.split('');
+            // Iterate over each character
+            characters.forEach((char, index) => {
+                // Create a span element for each character
+                const span = document.createElement('span');
+                span.textContent = char;
+                // Delay each character by multiplying index with 100 milliseconds
+                setTimeout(() => {
+                    element.appendChild(span);
+                }, index * 100);
+            });
+        }
+
+        // Call the function with the "About Me" heading element and the desired text
+        animateText(document.getElementById('aboutMe'), 'About Me');
+    </script>
+</body>
+</html>
